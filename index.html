@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en-AU"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Focus timer</title>
+<style>
+:root{--bg:#0f172a;--fg:#f8fafc;--accent:#38bdf8}
+body{margin:0;min-height:100vh;display:grid;place-items:center;background:var(--bg);color:var(--fg);font-family:system-ui,sans-serif}
+main{text-align:center;padding:1rem}
+#t{font-size:5rem;font-variant-numeric:tabular-nums;margin:.5rem 0}
+button{font-size:1rem;padding:.6rem 1.2rem;margin:.25rem;border:0;border-radius:.5rem;background:var(--accent);color:#0f172a;cursor:pointer}
+p{opacity:.7}
+</style></head><body><main>
+<h1>Focus timer</h1><div id="t">25:00</div>
+<button id="s">Start</button><button id="r">Reset</button>
+<p>Static demo. No data collected, no network calls.</p>
+</main><script>
+let sec=1500,h=null;const t=document.getElementById('t');
+const show=()=>t.textContent=String(Math.floor(sec/60)).padStart(2,'0')+':'+String(sec%60).padStart(2,'0');
+document.getElementById('s').onclick=e=>{if(h){clearInterval(h);h=null;e.target.textContent='Start'}else{e.target.textContent='Pause';h=setInterval(()=>{if(--sec<=0){clearInterval(h);h=null;sec=0}show()},1000)}};
+document.getElementById('r').onclick=()=>{clearInterval(h);h=null;sec=1500;show();document.getElementById('s').textContent='Start'};
+</script></body></html>
